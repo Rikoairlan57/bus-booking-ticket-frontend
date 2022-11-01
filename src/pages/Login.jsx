@@ -1,10 +1,23 @@
 import React from "react";
-import { Form } from "antd";
+import { Form, message } from "antd";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
-  const onFinish = (value) => {
-    console.log(value);
+  const onFinish = async (values) => {
+    try {
+      const response = await axios.post("/api/users/login", values);
+
+      if (response.data.success) {
+        message.success(response.data.message);
+        localStorage.setItem("token", response.data.data);
+        window.location.href = "/";
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
   };
   return (
     <div className="h-screen d-flex justify-content-center align-items-center auth">
