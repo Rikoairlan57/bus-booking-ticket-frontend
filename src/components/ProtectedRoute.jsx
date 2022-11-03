@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { message } from "antd";
+import { useDispatch } from "react-redux";
+import { SetUser } from "../redux/usersSlice";
 
 const ProtectedRoute = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const validateToken = async () => {
     try {
@@ -21,6 +24,7 @@ const ProtectedRoute = ({ children }) => {
 
       if (response.data.success) {
         setLoading(false);
+        dispatch(SetUser(response.data.data));
       } else {
         setLoading(false);
         localStorage.removeItem("token");
