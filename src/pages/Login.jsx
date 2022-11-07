@@ -4,8 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
+import "../styles/auth.css";
 
-const Login = () => {
+function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onFinish = async (values) => {
@@ -16,7 +17,7 @@ const Login = () => {
       if (response.data.success) {
         message.success(response.data.message);
         localStorage.setItem("token", response.data.data);
-        navigate("/");
+        window.location.href = "/";
       } else {
         message.error(response.data.message);
       }
@@ -25,10 +26,11 @@ const Login = () => {
       message.error(error.message);
     }
   };
+
   return (
     <div className="h-screen d-flex justify-content-center align-items-center auth">
       <div className="w-400 card p-3">
-        <h1 className="text-lg">StarBus - Login</h1>
+        <h1 className="text-lg">SheyBus - Login</h1>
         <hr />
         <Form layout="vertical" onFinish={onFinish}>
           <Form.Item label="Email" name="email">
@@ -47,6 +49,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;
