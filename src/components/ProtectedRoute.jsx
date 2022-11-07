@@ -1,19 +1,20 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { message } from "antd";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SetUser } from "../redux/usersSlice";
+import { useNavigate } from "react-router-dom";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
+import { SetUser } from "../redux/usersSlice";
 import DefaultLayout from "./DefaultLayout";
 
-const ProtectedRoute = ({ children }) => {
+function ProtectedRoute({ children }) {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.alerts);
+  const { user } = useSelector((state) => state.users);
+
   const navigate = useNavigate();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const validateToken = async () => {
     try {
+      dispatch(ShowLoading());
       const response = await axios.post(
         "/api/users/get-user-by-id",
         {},
@@ -23,7 +24,6 @@ const ProtectedRoute = ({ children }) => {
           },
         }
       );
-      dispatch(ShowLoading());
       dispatch(HideLoading());
       if (response.data.success) {
         dispatch(SetUser(response.data.data));
@@ -35,19 +35,31 @@ const ProtectedRoute = ({ children }) => {
     } catch (error) {
       dispatch(HideLoading());
       localStorage.removeItem("token");
+
       message.error(error.message);
       navigate("/login");
     }
   };
-
   useEffect(() => {
     if (localStorage.getItem("token")) {
       validateToken();
     } else {
       navigate("/login");
     }
-  }, [navigate, validateToken]);
-  return <div>{!loading && <DefaultLayout>{children}</DefaultLayout>}</div>;
-};
+  }, []);
+
+  useEffect(() => {
+    if (window.location.pathname.includes("admin")) {
+      if (!user?.isAdmin) {
+        message.error("You are not authorized to access this page");
+        window.location.href = "/";
+      }
+    }
+  }, [user]);
+
+  return (
+    <div>{user !== null && <DefaultLayout>{children}</DefaultLayout>}</div>
+  );
+}
 
 export default ProtectedRoute;

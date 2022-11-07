@@ -7,28 +7,28 @@ const DefaultLayout = ({ children }) => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const { user } = useSelector((state) => state.users);
-  const userMenu = [
-    {
-      name: "Home",
-      icon: "ri-home-line",
-      path: "/",
-    },
-    {
-      name: "Bookings",
-      icon: "ri-file-list-line",
-      path: "/bookings",
-    },
-    {
-      name: "Profile",
-      icon: "ri-user-line",
-      path: "/profile",
-    },
-    {
-      name: "Logout",
-      icon: "ri-logout-box-line",
-      path: "/logout",
-    },
-  ];
+  // const userMenu = [
+  //   {
+  //     name: "Home",
+  //     icon: "ri-home-line",
+  //     path: "/",
+  //   },
+  //   {
+  //     name: "Bookings",
+  //     icon: "ri-file-list-line",
+  //     path: "/bookings",
+  //   },
+  //   {
+  //     name: "Profile",
+  //     icon: "ri-user-line",
+  //     path: "/profile",
+  //   },
+  //   {
+  //     name: "Logout",
+  //     icon: "ri-logout-box-line",
+  //     path: "/logout",
+  //   },
+  // ];
   const adminMenu = [
     {
       name: "Home",
