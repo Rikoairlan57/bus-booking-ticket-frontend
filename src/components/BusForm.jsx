@@ -1,35 +1,40 @@
 import React from "react";
+import { Col, Form, message, Modal, Row } from "antd";
 import { axiosInstance } from "../helpers/axiosInstance";
-import { Col, Form, Modal, Row, message } from "antd";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
-import moment from "moment";
 
-const BusForm = ({
+function BusForm({
   showBusForm,
   setShowBusForm,
   type = "add",
   getData,
   selectedBus,
   setSelectedBus,
-}) => {
+}) {
   const dispatch = useDispatch();
+
   const onFinish = async (values) => {
     try {
       dispatch(ShowLoading());
       let response = null;
       if (type === "add") {
-        response = await axiosInstance.post("/api/buses/add-bus", {
-          ...values,
-          journeyDate: moment(values.journeyDate).format("DD-MM-YYYY"),
-        });
+        response = await axiosInstance.post("/api/buses/add-bus", values);
       } else {
+        response = await axiosInstance.post("/api/buses/update-bus", {
+          ...values,
+          _id: selectedBus._id,
+        });
       }
       if (response.data.success) {
         message.success(response.data.message);
       } else {
         message.error(response.data.message);
       }
+      getData();
+      setShowBusForm(false);
+      setSelectedBus(null);
+
       dispatch(HideLoading());
     } catch (error) {
       message.error(error.message);
@@ -38,10 +43,13 @@ const BusForm = ({
   };
   return (
     <Modal
-      title={type === "add" ? "Add Bus" : "Update Bus"}
       width={800}
+      title={type === "add" ? "Add Bus" : "Update Bus"}
       visible={showBusForm}
-      onCancel={() => setShowBusForm(false)}
+      onCancel={() => {
+        setSelectedBus(null);
+        setShowBusForm(false);
+      }}
       footer={false}
     >
       <Form layout="vertical" onFinish={onFinish} initialValues={selectedBus}>
@@ -122,6 +130,6 @@ const BusForm = ({
       </Form>
     </Modal>
   );
-};
+}
 
 export default BusForm;

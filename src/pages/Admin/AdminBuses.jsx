@@ -6,12 +6,11 @@ import PageTitle from "../../components/PageTitle";
 import { axiosInstance } from "../../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../../redux/alertsSlice";
 
-const AdminBuses = () => {
+function AdminBuses() {
   const dispatch = useDispatch();
   const [showBusForm, setShowBusForm] = useState(false);
   const [buses, setBuses] = useState([]);
   const [selectedBus, setSelectedBus] = useState(null);
-
   const getBuses = async () => {
     try {
       dispatch(ShowLoading());
@@ -60,7 +59,7 @@ const AdminBuses = () => {
         <div className="d-flex gap-3">
           <i className="ri-delete-bin-line"></i>
           <i
-            class="ri-pencil-line"
+            className="ri-pencil-line"
             onClick={() => {
               setSelectedBus(record);
               setShowBusForm(true);
@@ -74,27 +73,29 @@ const AdminBuses = () => {
   useEffect(() => {
     getBuses();
   }, []);
-
   return (
     <div>
-      <div className="d-flex justify-content-between">
-        <PageTitle title="Bus Page" />
+      <div className="d-flex justify-content-between my-2">
+        <PageTitle title="Buses" />
         <button className="primary-btn" onClick={() => setShowBusForm(true)}>
           Add Bus
         </button>
       </div>
+
       <Table columns={columns} dataSource={buses} />
+
       {showBusForm && (
         <BusForm
           showBusForm={showBusForm}
           setShowBusForm={setShowBusForm}
           type={selectedBus ? "edit" : "add"}
           selectedBus={selectedBus}
+          setSelectedBus={setSelectedBus}
           getData={getBuses}
         />
       )}
     </div>
   );
-};
+}
 
 export default AdminBuses;
