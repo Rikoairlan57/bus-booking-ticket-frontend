@@ -5,7 +5,14 @@ import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import moment from "moment";
 
-const BusForm = ({ showBusForm, setShowBusForm, type = "add" }) => {
+const BusForm = ({
+  showBusForm,
+  setShowBusForm,
+  type = "add",
+  getData,
+  selectedBus,
+  setSelectedBus,
+}) => {
   const dispatch = useDispatch();
   const onFinish = async (values) => {
     try {
@@ -31,13 +38,13 @@ const BusForm = ({ showBusForm, setShowBusForm, type = "add" }) => {
   };
   return (
     <Modal
-      title="Add Bus"
+      title={type === "add" ? "Add Bus" : "Update Bus"}
       width={800}
       visible={showBusForm}
       onCancel={() => setShowBusForm(false)}
       footer={false}
     >
-      <Form layout="vertical" onFinish={onFinish}>
+      <Form layout="vertical" onFinish={onFinish} initialValues={selectedBus}>
         <Row gutter={[10, 10]}>
           <Col lg={24} xs={24}>
             <Form.Item label="Bus Name" name="name">

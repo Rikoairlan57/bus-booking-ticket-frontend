@@ -1,5 +1,4 @@
 import { message, Table } from "antd";
-
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import BusForm from "../../components/BusForm";
@@ -11,6 +10,7 @@ const AdminBuses = () => {
   const dispatch = useDispatch();
   const [showBusForm, setShowBusForm] = useState(false);
   const [buses, setBuses] = useState([]);
+  const [selectedBus, setSelectedBus] = useState(null);
 
   const getBuses = async () => {
     try {
@@ -59,7 +59,13 @@ const AdminBuses = () => {
       render: (action, record) => (
         <div className="d-flex gap-3">
           <i className="ri-delete-bin-line"></i>
-          <i className="ri-pencil-line"></i>
+          <i
+            class="ri-pencil-line"
+            onClick={() => {
+              setSelectedBus(record);
+              setShowBusForm(true);
+            }}
+          ></i>
         </div>
       ),
     },
@@ -82,7 +88,9 @@ const AdminBuses = () => {
         <BusForm
           showBusForm={showBusForm}
           setShowBusForm={setShowBusForm}
-          type="add"
+          type={selectedBus ? "edit" : "add"}
+          selectedBus={selectedBus}
+          getData={getBuses}
         />
       )}
     </div>
