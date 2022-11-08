@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import "../styles/layout.css";
+import { useSelector } from "react-redux";
 
-const DefaultLayout = ({ children }) => {
+function DefaultLayout({ children }) {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const { user } = useSelector((state) => state.users);
@@ -56,7 +55,7 @@ const DefaultLayout = ({ children }) => {
       icon: "ri-logout-box-line",
     },
   ];
-  const menuToBeRendered = adminMenu;
+  const menuToBeRendered = user?.isAdmin ? adminMenu : userMenu;
   let activeRoute = window.location.pathname;
   if (window.location.pathname.includes("book-now")) {
     activeRoute = "/";
@@ -104,12 +103,12 @@ const DefaultLayout = ({ children }) => {
         <div className="header">
           {collapsed ? (
             <i
-              className="ri-menu-2-fill"
+              class="ri-menu-2-fill"
               onClick={() => setCollapsed(!collapsed)}
             ></i>
           ) : (
             <i
-              className="ri-close-line"
+              class="ri-close-line"
               onClick={() => setCollapsed(!collapsed)}
             ></i>
           )}
@@ -118,6 +117,6 @@ const DefaultLayout = ({ children }) => {
       </div>
     </div>
   );
-};
+}
 
 export default DefaultLayout;

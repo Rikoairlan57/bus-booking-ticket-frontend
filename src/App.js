@@ -1,4 +1,3 @@
-import "./styles/global.css";
 import "antd/dist/antd.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
