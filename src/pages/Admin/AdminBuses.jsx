@@ -1,4 +1,5 @@
 import { message, Table } from "antd";
+
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import BusForm from "../../components/BusForm";
@@ -51,6 +52,16 @@ const AdminBuses = () => {
     {
       title: "Status",
       dataIndex: "status",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      render: (action, record) => (
+        <div className="d-flex gap-3">
+          <i className="ri-delete-bin-line"></i>
+          <i className="ri-pencil-line"></i>
+        </div>
+      ),
     },
   ];
 
