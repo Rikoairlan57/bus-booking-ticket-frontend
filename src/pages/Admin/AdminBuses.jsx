@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { message, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import BusForm from "../../components/BusForm";
@@ -27,6 +27,33 @@ const AdminBuses = () => {
     }
   };
 
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Number",
+      dataIndex: "number",
+    },
+    {
+      title: "From",
+      dataIndex: "from",
+    },
+    {
+      title: "To",
+      dataIndex: "to",
+    },
+    {
+      title: "Journey Date",
+      dataIndex: "journeyDate",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+    },
+  ];
+
   useEffect(() => {
     getBuses();
   }, []);
@@ -39,6 +66,7 @@ const AdminBuses = () => {
           Add Bus
         </button>
       </div>
+      <Table columns={columns} dataSource={buses} />
       {showBusForm && (
         <BusForm
           showBusForm={showBusForm}
