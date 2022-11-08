@@ -3,6 +3,7 @@ import { axiosInstance } from "../helpers/axiosInstance";
 import { Col, Form, Modal, Row, message } from "antd";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
+import moment from "moment";
 
 const BusForm = ({ showBusForm, setShowBusForm, type = "add" }) => {
   const dispatch = useDispatch();
@@ -11,7 +12,10 @@ const BusForm = ({ showBusForm, setShowBusForm, type = "add" }) => {
       dispatch(ShowLoading());
       let response = null;
       if (type === "add") {
-        response = await axiosInstance.post("/api/buses/add-bus", values);
+        response = await axiosInstance.post("/api/buses/add-bus", {
+          ...values,
+          journeyDate: moment(values.journeyDate).format("DD-MM-YYYY"),
+        });
       } else {
       }
       if (response.data.success) {
