@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Bus = ({ bus }) => {
+  const navigate = useNavigate();
   return (
     <div className="card p-2">
       <h1 className="text-lg primary-text">{bus.name}</h1>
@@ -28,7 +30,14 @@ const Bus = ({ bus }) => {
           <p className="text-sm">{bus.journeyDate}</p>
         </div>
 
-        <h1 className="text-lg underline secondary-text">Book Now</h1>
+        <h1
+          className="text-lg underline secondary-text"
+          onClick={() => {
+            navigate(`/book-now/${bus._id}`);
+          }}
+        >
+          Book Now
+        </h1>
       </div>
     </div>
   );
