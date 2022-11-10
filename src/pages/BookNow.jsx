@@ -4,8 +4,10 @@ import { axiosInstance } from "../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import SeatSelection from "../components/SeatSelection";
 
 const BookNow = () => {
+  const [selectedSeats, setSelectedSeats] = useState([]);
   const params = useParams();
   const dispatch = useDispatch();
   const [bus, setBus] = useState(null);
@@ -54,7 +56,11 @@ const BookNow = () => {
             </div>
           </Col>
           <Col lg={12} xs={24} sm={24}>
-            Testing Ticket
+            <SeatSelection
+              selectedSeats={selectedSeats}
+              setSelectedSeats={setSelectedSeats}
+              bus={bus}
+            />
           </Col>
         </Row>
       )}
