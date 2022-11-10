@@ -3,6 +3,7 @@ import { Col, Row, message } from "antd";
 import { axiosInstance } from "../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import { useDispatch } from "react-redux";
+import Bus from "../components/Bus";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -31,9 +32,11 @@ const Home = () => {
     <div>
       <div>HOMEPAGE</div>
       <div>
-        <Row>
+        <Row gutter={[15, 15]}>
           {buses.map((bus) => (
-            <Col></Col>
+            <Col lg={12} xs={24} sm={24}>
+              <Bus bus={bus} />
+            </Col>
           ))}
         </Row>
       </div>
