@@ -46,13 +46,32 @@ const BookNow = () => {
 
             <div className="flex flex-col gap-2">
               <p className="text-md">Jourey Date : {bus.journeyDate}</p>
-              <p className="text-md">Fare : $ {bus.fare} /-</p>
+              <p className="text-md">Fare : $ {bus.fare} </p>
               <p className="text-md">Departure Time : {bus.departure}</p>
               <p className="text-md">Arrival Time : {bus.arrival}</p>
               <p className="text-md">Capacity : {bus.capacity}</p>
               <p className="text-md">
                 Seats Left : {bus.capacity - bus.seatsBooked.length}
               </p>
+            </div>
+            <hr />
+            <div className="flex flex-col gap-2">
+              <h1 className="text-2xl">
+                Selected Seats : {selectedSeats.join(", ")}
+              </h1>
+              <h1 className="text-2xl mt-2">
+                Fare : $ {bus.fare * selectedSeats.length}
+              </h1>
+              <hr />
+
+              <button
+                className={`primary-btn ${
+                  selectedSeats.length === 0 && "disabled-btn"
+                }`}
+                disabled={selectedSeats.length === 0}
+              >
+                Book Now
+              </button>
             </div>
           </Col>
           <Col lg={12} xs={24} sm={24}>
