@@ -30,6 +30,25 @@ const BookNow = () => {
     }
   };
 
+  const bookNow = async (transactionId) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await axiosInstance.post("/api/bookings/book-seat", {
+        bus: bus._id,
+        seats: selectedSeats,
+      });
+      dispatch(HideLoading());
+      if (response.data.success) {
+        message.success(response.data.message);
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
+
   useEffect(() => {
     getBus();
   }, []);
@@ -69,6 +88,7 @@ const BookNow = () => {
                   selectedSeats.length === 0 && "disabled-btn"
                 }`}
                 disabled={selectedSeats.length === 0}
+                onClick={bookNow}
               >
                 Book Now
               </button>
