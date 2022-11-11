@@ -37,6 +37,7 @@ const BookNow = () => {
       const response = await axiosInstance.post("/api/bookings/book-seat", {
         bus: bus._id,
         seats: selectedSeats,
+        transactionId,
       });
       dispatch(HideLoading());
       if (response.data.success) {
@@ -107,7 +108,7 @@ const BookNow = () => {
                 billingAddress
                 token={onToken}
                 amount={bus.fare * selectedSeats.length * 100}
-                currency="INR"
+                currency="USD"
                 stripeKey="pk_test_51M2oAPH16xVKcbBrGFGvCDT4eM9iqmV1f9by92u2gbjojBxdt7sM9FPlFX6SunXNPbbScnO6g2zsclgFQypyLIM600ewTPKJVY"
               >
                 <button
