@@ -51,7 +51,23 @@ const BookNow = () => {
   };
 
   const onToken = async (token) => {
-    console.log(token);
+    try {
+      dispatch(ShowLoading());
+      const response = await axiosInstance.post("/api/bookings/make-payment", {
+        token,
+        amount: selectedSeats.length * bus.fare * 100,
+      });
+      dispatch(HideLoading());
+      if (response.data.success) {
+        message.success(response.data.message);
+        bookNow(response.data.data.transactionId);
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -88,7 +104,10 @@ const BookNow = () => {
               </h1>
               <hr />
               <StripeCheckout
+                billingAddress
                 token={onToken}
+                amount={bus.fare * selectedSeats.length * 100}
+                currency="INR"
                 stripeKey="pk_test_51M2oAPH16xVKcbBrGFGvCDT4eM9iqmV1f9by92u2gbjojBxdt7sM9FPlFX6SunXNPbbScnO6g2zsclgFQypyLIM600ewTPKJVY"
               >
                 <button
