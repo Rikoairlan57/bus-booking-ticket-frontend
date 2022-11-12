@@ -36,12 +36,49 @@ const Bookings = () => {
     }
   };
 
+  const columns = [
+    {
+      title: "Bus Name",
+      dataIndex: "name",
+      key: "bus",
+    },
+    {
+      title: "Bus Number",
+      dataIndex: "number",
+      key: "bus",
+    },
+    {
+      title: "Journey Date",
+      dataIndex: "journeyDate",
+    },
+    {
+      title: "Journey Time",
+      dataIndex: "departure",
+    },
+    {
+      title: "Seats",
+      dataIndex: "seats",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      render: (text, record) => (
+        <div>
+          <p className="text-md underline">Print Ticket</p>
+        </div>
+      ),
+    },
+  ];
+
   useEffect(() => {
     getBookings();
   }, []);
   return (
     <div>
-      <h1>Bookings pages </h1>
+      <PageTitle title="Bookings" />
+      <div className="mt-2">
+        <Table dataSource={bookings} columns={columns} />
+      </div>
     </div>
   );
 };
