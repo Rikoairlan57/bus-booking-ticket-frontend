@@ -4,14 +4,14 @@ import { axiosInstance } from "../helpers/axiosInstance";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 
-function BusForm({
+const BusForm = ({
   showBusForm,
   setShowBusForm,
   type = "add",
   getData,
   selectedBus,
   setSelectedBus,
-}) {
+}) => {
   const dispatch = useDispatch();
 
   const onFinish = async (values) => {
@@ -130,6 +130,6 @@ function BusForm({
       </Form>
     </Modal>
   );
-}
+};
 
 export default BusForm;

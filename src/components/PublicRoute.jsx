@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function PublicRoute({ children }) {
+const PublicRoute = ({ children }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -10,6 +10,6 @@ function PublicRoute({ children }) {
   }, [navigate]);
 
   return <div>{children}</div>;
-}
+};
 
 export default PublicRoute;

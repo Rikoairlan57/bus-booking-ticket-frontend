@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import "../styles/auth.css";
 
-function Login() {
+const Login = () => {
   const dispatch = useDispatch();
   const onFinish = async (values) => {
     try {
@@ -48,6 +48,6 @@ function Login() {
       </div>
     </div>
   );
-}
+};
 
 export default Login;

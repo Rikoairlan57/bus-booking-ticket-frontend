@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-function DefaultLayout({ children }) {
+const DefaultLayout = ({ children }) => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const { user } = useSelector((state) => state.users);
@@ -117,6 +117,6 @@ function DefaultLayout({ children }) {
       </div>
     </div>
   );
-}
+};
 
 export default DefaultLayout;

@@ -7,7 +7,7 @@ import PageTitle from "../../components/PageTitle";
 import { axiosInstance } from "../../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../../redux/alertsSlice";
 
-function AdminBuses() {
+const AdminBuses = () => {
   const dispatch = useDispatch();
   const [showBusForm, setShowBusForm] = useState(false);
   const [buses, setBuses] = useState([]);
@@ -121,6 +121,6 @@ function AdminBuses() {
       )}
     </div>
   );
-}
+};
 
 export default AdminBuses;

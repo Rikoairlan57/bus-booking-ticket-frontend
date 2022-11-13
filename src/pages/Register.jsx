@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { ShowLoading, HideLoading } from "../redux/alertsSlice";
 import "../styles/auth.css";
 
-function Register() {
+const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onFinish = async (values) => {
@@ -51,6 +51,6 @@ function Register() {
       </div>
     </div>
   );
-}
+};
 
 export default Register;

@@ -8,7 +8,7 @@ import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import { SetUser } from "../redux/usersSlice";
 import DefaultLayout from "./DefaultLayout";
 
-function ProtectedRoute({ children }) {
+const ProtectedRoute = ({ children }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.users);
 
@@ -61,6 +61,6 @@ function ProtectedRoute({ children }) {
   return (
     <div>{user !== null && <DefaultLayout>{children}</DefaultLayout>}</div>
   );
-}
+};
 
 export default ProtectedRoute;

@@ -7,7 +7,7 @@ import { axiosInstance } from "../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import { useReactToPrint } from "react-to-print";
 
-function Bookings() {
+const Bookings = () => {
   const [showPrintModal, setShowPrintModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [bookings, setBookings] = useState([]);
@@ -137,6 +137,6 @@ function Bookings() {
       )}
     </div>
   );
-}
+};
 
 export default Bookings;
