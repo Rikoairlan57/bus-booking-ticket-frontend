@@ -1,4 +1,4 @@
-import { Col, message, Row } from "antd";
+import { Col, message, Row, Button } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -75,11 +75,12 @@ const Home = () => {
           </Col>
           <Col lg={6} sm={24}>
             <div className="d-flex gap-2">
-              <button className="primary-btn" onClick={() => getBuses()}>
+              <Button size="large" type="primary" onClick={() => getBuses()}>
                 Filter
-              </button>
-              <button
-                className="outlined px-3"
+              </Button>
+              <Button
+                size="large"
+                type="danger"
                 onClick={() =>
                   setFilters({
                     from: "",
@@ -89,7 +90,7 @@ const Home = () => {
                 }
               >
                 Clear
-              </button>
+              </Button>
             </div>
           </Col>
         </Row>
